@@ -12,19 +12,29 @@ const publish = (queue, message) => {
     })
   })
 }
+const get = (queue) => {
+  return channel.then(ch => {
+    return ch.assertQueue(queue).then(ok => {
+      return ch.get(queue, {})
+    })
+  })
+}
+
+const ack = (message) => channel.then(ch => ch.ack(message))
 
 const registerConsumer = (queue, callback) => {
   console.log(`[*] Waiting for messages in queue '${queue}'`);
   channel.then(ch => {
     ch.assertQueue(queue).then(ok => {
-      ch.consume(queue, async (message) => {
-        console.log(`[x] Received ${message.content.toString()}`)
-        await callback(message)
-        console.log(`[x] ACK ${message.content.toString()}`)
-        ch.ack(message)
+      ch.consume(queue, async (msg) => {
+        const json = await JSON.parse(msg.content.toString())
+        console.log(`[x] Received ${msg.content.toString()}`)
+        await callback(json)
+        console.log(`[x] ACK ${msg.content.toString()}`)
+        ch.ack(msg)
       },  { noAck: false })
     })
   })
 }
 
-module.exports = { publish, registerConsumer }
+module.exports = { publish, registerConsumer, get, ack }
