@@ -1,0 +1,24 @@
+{
+  "name": "node-redis-background-processing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trombini/node-rabbitmq-background-processing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trombini/node-rabbitmq-background-processing/issues"
+  },
+  "homepage": "https://github.com/trombini/node-rabbitmq-background-processing#readme",
+  "dependencies": {
+    "amqplib": "^0.5.5",
+    "express": "^4.17.1"
+  }
+}
